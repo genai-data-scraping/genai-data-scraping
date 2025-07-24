@@ -19,20 +19,20 @@ genai-data-scraping-html/
 
 The project includes scraped data from three major websites:
 
-### Amazon.com Data
+### amazon.com Data
 - **Format**: Complete HTML files with associated assets
 - **Content**: Product pages (HTML + Assets):
 - **File Size**: 1.6MB - 2.6MB per page
 - **Count**: 1,000 product pages
 
-### Cars.com Data
+### cars.com Data
 - **Format**: Complete HTML files with associated assets
 - **Content**: Vehicle listings (HTML + Assets):
   - Different vehicle types: sedans, SUVs, trucks, sports cars
 - **File Size**: 1.1MB - 3.0MB per page
 - **Count**: 1,000 vehicle listings
 
-### Upwork.com Data
+### upwork.com Data
 - **Format**: Complete HTML files with associated assets
 - **Content**: Freelancer profiles (HTML + Assets):
 - **File Size**: 1.1MB - 1.5MB per page
