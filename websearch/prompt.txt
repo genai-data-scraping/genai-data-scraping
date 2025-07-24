@@ -1,0 +1,14 @@
+Please visit the provided URL below and extract the specified information.
+Please follow these guidelines for accurate results:
+
+- Extract information exactly as it appears on the page
+- Make sure the results are complete, reliable, and accurate
+- If any requested information is not available or clearly displayed, indicate "Not available" or "Not specified"
+- If there are multiple variations of the same information, note all relevant versions
+- Return the results in JSON format
+
+Fields to extract:
+1. xx
+2. xx
+3. xx
+4. xx
