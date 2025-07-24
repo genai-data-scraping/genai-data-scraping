@@ -11,7 +11,7 @@ genai-data-scraping-html/
 │   └── upwork.com/         # Freelancer profiles (HTML + assets)
 ├── method2/                # HTML processing with LLM API
 ├── method3/                # Image/screenshot processing with vision API
-├── websearch/              # Web search API processing
+├── websearch/              # Web search API processingff
 └── requirements.txt        # Python dependencies
 ```
 
@@ -140,7 +140,7 @@ python app.py -d "../data/upwork.com" -n 6 -w 3
 
 ## Method 3: Image/Screenshot Processing
 
-**Purpose**: Analyzes screenshots and images using vision API to extract structured data from visual content.
+**Purpose**: Analyzes screenshots and images using a vision-enabled LLM API to extract structured data from visual content.
 
 ### Features
 - Supports multiple image formats (PNG, JPG, JPEG, GIF, BMP, WEBP)
