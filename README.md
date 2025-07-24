@@ -1,7 +1,6 @@
-# GenAI Data Scraping HTML Project
+# Generative AI for Data Scraping
 
-A comprehensive data extraction toolkit that provides three different methods for extracting structured information from web content: HTML processing (Method 2), image/screenshot analysis (Method 3), and web search integration (WebSearch).
-
+This is the GitHub repo to accompany the paper [Generative AI for Data Scraping](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5353923).
 ## 📁 Project Structure
 
 ```
@@ -10,48 +9,36 @@ genai-data-scraping-html/
 │   ├── amazon.com/         # Amazon product pages (HTML + assets)
 │   ├── cars.com/           # Car listings (HTML + assets)
 │   └── upwork.com/         # Freelancer profiles (HTML + assets)
-├── method2/                # HTML processing with LLM
+├── method2/                # HTML processing with LLM API
 ├── method3/                # Image/screenshot processing with vision API
-├── websearch/              # Web search integration
-├── requirements.txt        # Python dependencies
-└── venv/                   # Virtual environment
+├── websearch/              # Web search API processingff
+└── requirements.txt        # Python dependencies
 ```
 
 ## 🗂️ Available Data
 
 The project includes scraped data from three major websites:
 
-### Amazon.com Data
+### amazon.com Data
 - **Format**: Complete HTML files with associated assets
-- **Content**: Product pages including:
-  - Kitchen appliances (rice cookers, pressure cookers, sous vide machines)
-  - Japanese tableware and bowls
-  - Books and educational materials
-  - Electronics and gadgets
+- **Content**: Product pages (HTML + Assets):
 - **File Size**: 1.6MB - 2.6MB per page
-- **Count**: 50+ product pages
+- **Count**: 1,000 product pages
 
-### Cars.com Data
+### cars.com Data
 - **Format**: Complete HTML files with associated assets
-- **Content**: Vehicle listings including:
-  - New and used cars (2015-2025 models)
-  - Various makes: Toyota, Ford, Tesla, BMW, Mercedes, etc.
-  - Price range: $13,907 - $324,900
+- **Content**: Vehicle listings (HTML + Assets):
   - Different vehicle types: sedans, SUVs, trucks, sports cars
 - **File Size**: 1.1MB - 3.0MB per page
-- **Count**: 50+ vehicle listings
+- **Count**: 1,000 vehicle listings
 
-### Upwork.com Data
+### upwork.com Data
 - **Format**: Complete HTML files with associated assets
-- **Content**: Freelancer profiles including:
-  - Developers (Full-stack, Mobile, AI/ML specialists)
-  - Designers (UI/UX, Graphic, Motion designers)
-  - Digital marketers and SEO experts
-  - Writers and consultants
+- **Content**: Freelancer profiles (HTML + Assets):
 - **File Size**: 1.1MB - 1.5MB per page
-- **Count**: 50+ freelancer profiles
+- **Count**: 1,000 freelancer profiles
 
-## 🚀 Setup Instructions
+## Setup Instructions
 
 ### 1. Environment Setup
 
@@ -84,7 +71,7 @@ export OPENROUTER_API_KEY="your_api_key_here"
 echo "OPENROUTER_API_KEY=your_api_key_here" > .env
 ```
 
-## 🔧 Method 2: HTML Processing
+##  Method 2: HTML Processing
 
 **Purpose**: Extracts structured data from HTML files using LLM analysis with intelligent content cleaning and parallel processing.
 
@@ -151,9 +138,9 @@ python app.py -d "../data/upwork.com" -n 6 -w 3
 }
 ```
 
-## 🖼️ Method 3: Image/Screenshot Processing
+## Method 3: Image/Screenshot Processing
 
-**Purpose**: Analyzes screenshots and images using vision API to extract structured data from visual content.
+**Purpose**: Analyzes screenshots and images using a vision-enabled LLM API to extract structured data from visual content.
 
 ### Features
 - Supports multiple image formats (PNG, JPG, JPEG, GIF, BMP, WEBP)
@@ -211,7 +198,7 @@ python app.py -f images --verbose --backup
 }
 ```
 
-## 🌐 WebSearch: Web Search Integration
+## WebSearch: Web Search Integration
 
 **Purpose**: Combines HTML file processing with live web search capabilities for enhanced data extraction.
 
@@ -275,7 +262,7 @@ python app.py -d "../data/upwork.com" -n 4 -p "custom_search_prompt.txt"
 }
 ```
 
-## 📝 Customizing Prompts
+## Customizing Prompts
 
 Each method uses a `prompt.txt` file that defines what data to extract:
 
@@ -319,7 +306,7 @@ Fields to extract:
 Return results in JSON format.
 ```
 
-## 🔧 Configuration Options
+## Configuration Options
 
 ### Method 2 Settings (`method2/config/settings.py`)
 ```python
@@ -353,7 +340,7 @@ API_TEMPERATURE = 0.1
 DEFAULT_MAX_WORKERS = 5  # Lower for rate limiting
 ```
 
-## 📊 Performance Tips
+## Performance Tips
 
 ### Method 2 (HTML Processing)
 - Use 5-10 workers for optimal performance
@@ -370,7 +357,7 @@ DEFAULT_MAX_WORKERS = 5  # Lower for rate limiting
 - Processing time depends on web search complexity
 - Monitor for timeout issues with slow websites
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -388,30 +375,9 @@ DEFAULT_MAX_WORKERS = 5  # Lower for rate limiting
 
 3. **Rate Limit Errors**
    ```bash
-   # Reduce worker count
-   python app.py -d "../data/amazon.com" -n 5 -w 2
+   Reduce worker count in the argparse command
    ```
-
-4. **Memory Issues**
-   ```bash
-   # Process fewer files at once
-   python app.py -d "../data/amazon.com" -n 3
-   ```
-
-### Logging
-
-All methods include comprehensive logging:
-- Method 2: Console output with processing details
-- Method 3: `vision_processing.log`
-- WebSearch: `web_search_batch.log`
-
-## 🤝 Contributing
-
-1. Follow the existing code structure and patterns
-2. Add appropriate error handling and logging
-3. Update documentation for new features
-4. Test with sample data before submitting changes
 
 ## 📄 License
 
-This project is provided as-is for educational and research purposes. 
+This project is provided for research and reproducibility purposes. 
