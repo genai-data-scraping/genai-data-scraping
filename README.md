@@ -1,7 +1,6 @@
 # GenAI Data Scraping HTML Project
 
-A comprehensive data extraction toolkit that provides three different methods for extracting structured information from web content: HTML processing (Method 2), image/screenshot analysis (Method 3), and web search integration (WebSearch).
-
+This is the GitHub repo to accompany the paper [Generative AI for Data Scraping](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5353923).
 ## 📁 Project Structure
 
 ```
@@ -51,7 +50,7 @@ The project includes scraped data from three major websites:
 - **File Size**: 1.1MB - 1.5MB per page
 - **Count**: 50+ freelancer profiles
 
-## 🚀 Setup Instructions
+## Setup Instructions
 
 ### 1. Environment Setup
 
@@ -84,7 +83,7 @@ export OPENROUTER_API_KEY="your_api_key_here"
 echo "OPENROUTER_API_KEY=your_api_key_here" > .env
 ```
 
-## 🔧 Method 2: HTML Processing
+##  Method 2: HTML Processing
 
 **Purpose**: Extracts structured data from HTML files using LLM analysis with intelligent content cleaning and parallel processing.
 
@@ -151,7 +150,7 @@ python app.py -d "../data/upwork.com" -n 6 -w 3
 }
 ```
 
-## 🖼️ Method 3: Image/Screenshot Processing
+## Method 3: Image/Screenshot Processing
 
 **Purpose**: Analyzes screenshots and images using vision API to extract structured data from visual content.
 
@@ -211,7 +210,7 @@ python app.py -f images --verbose --backup
 }
 ```
 
-## 🌐 WebSearch: Web Search Integration
+## WebSearch: Web Search Integration
 
 **Purpose**: Combines HTML file processing with live web search capabilities for enhanced data extraction.
 
@@ -275,7 +274,7 @@ python app.py -d "../data/upwork.com" -n 4 -p "custom_search_prompt.txt"
 }
 ```
 
-## 📝 Customizing Prompts
+## Customizing Prompts
 
 Each method uses a `prompt.txt` file that defines what data to extract:
 
@@ -319,7 +318,7 @@ Fields to extract:
 Return results in JSON format.
 ```
 
-## 🔧 Configuration Options
+## Configuration Options
 
 ### Method 2 Settings (`method2/config/settings.py`)
 ```python
@@ -353,7 +352,7 @@ API_TEMPERATURE = 0.1
 DEFAULT_MAX_WORKERS = 5  # Lower for rate limiting
 ```
 
-## 📊 Performance Tips
+## Performance Tips
 
 ### Method 2 (HTML Processing)
 - Use 5-10 workers for optimal performance
@@ -370,7 +369,7 @@ DEFAULT_MAX_WORKERS = 5  # Lower for rate limiting
 - Processing time depends on web search complexity
 - Monitor for timeout issues with slow websites
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -388,30 +387,9 @@ DEFAULT_MAX_WORKERS = 5  # Lower for rate limiting
 
 3. **Rate Limit Errors**
    ```bash
-   # Reduce worker count
-   python app.py -d "../data/amazon.com" -n 5 -w 2
+   Reduce worker count in the argparse command
    ```
-
-4. **Memory Issues**
-   ```bash
-   # Process fewer files at once
-   python app.py -d "../data/amazon.com" -n 3
-   ```
-
-### Logging
-
-All methods include comprehensive logging:
-- Method 2: Console output with processing details
-- Method 3: `vision_processing.log`
-- WebSearch: `web_search_batch.log`
-
-## 🤝 Contributing
-
-1. Follow the existing code structure and patterns
-2. Add appropriate error handling and logging
-3. Update documentation for new features
-4. Test with sample data before submitting changes
 
 ## 📄 License
 
-This project is provided as-is for educational and research purposes. 
+This project is provided for research and reproducibility purposes. 
