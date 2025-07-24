@@ -9,11 +9,10 @@ genai-data-scraping-html/
 │   ├── amazon.com/         # Amazon product pages (HTML + assets)
 │   ├── cars.com/           # Car listings (HTML + assets)
 │   └── upwork.com/         # Freelancer profiles (HTML + assets)
-├── method2/                # HTML processing with LLM
+├── method2/                # HTML processing with LLM API
 ├── method3/                # Image/screenshot processing with vision API
-├── websearch/              # Web search integration
-├── requirements.txt        # Python dependencies
-└── venv/                   # Virtual environment
+├── websearch/              # Web search API processing
+└── requirements.txt        # Python dependencies
 ```
 
 ## 🗂️ Available Data
@@ -22,33 +21,22 @@ The project includes scraped data from three major websites:
 
 ### Amazon.com Data
 - **Format**: Complete HTML files with associated assets
-- **Content**: Product pages including:
-  - Kitchen appliances (rice cookers, pressure cookers, sous vide machines)
-  - Japanese tableware and bowls
-  - Books and educational materials
-  - Electronics and gadgets
+- **Content**: Product pages (HTML + Assets):
 - **File Size**: 1.6MB - 2.6MB per page
-- **Count**: 50+ product pages
+- **Count**: 1,000 product pages
 
 ### Cars.com Data
 - **Format**: Complete HTML files with associated assets
-- **Content**: Vehicle listings including:
-  - New and used cars (2015-2025 models)
-  - Various makes: Toyota, Ford, Tesla, BMW, Mercedes, etc.
-  - Price range: $13,907 - $324,900
+- **Content**: Vehicle listings (HTML + Assets):
   - Different vehicle types: sedans, SUVs, trucks, sports cars
 - **File Size**: 1.1MB - 3.0MB per page
-- **Count**: 50+ vehicle listings
+- **Count**: 1,000 vehicle listings
 
 ### Upwork.com Data
 - **Format**: Complete HTML files with associated assets
-- **Content**: Freelancer profiles including:
-  - Developers (Full-stack, Mobile, AI/ML specialists)
-  - Designers (UI/UX, Graphic, Motion designers)
-  - Digital marketers and SEO experts
-  - Writers and consultants
+- **Content**: Freelancer profiles (HTML + Assets):
 - **File Size**: 1.1MB - 1.5MB per page
-- **Count**: 50+ freelancer profiles
+- **Count**: 1,000 freelancer profiles
 
 ## Setup Instructions
 
