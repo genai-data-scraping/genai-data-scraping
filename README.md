@@ -1,4 +1,4 @@
-# GenAI Data Scraping HTML Project
+# Generative AI for Data Scraping
 
 This is the GitHub repo to accompany the paper [Generative AI for Data Scraping](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5353923).
 ## 📁 Project Structure
