@@ -11,7 +11,7 @@ genai-data-scraping-html/
 │   └── upwork.com/         # Freelancer profiles (HTML + assets)
 ├── method2/                # HTML processing with LLM API
 ├── method3/                # Image/screenshot processing with vision API
-├── websearch/              # Web search API processingff
+├── websearch/              # Web search API processing
 └── requirements.txt        # Python dependencies
 ```
 
@@ -38,6 +38,7 @@ The project includes scraped data from three major websites:
 - **File Size**: 1.1MB - 1.5MB per page
 - **Count**: 1,000 freelancer profiles
 
+In this repo, we provide sample data for completeness in **sample_data/**. The full dataset is provided at [put google drive link here].
 ## Setup Instructions
 
 ### 1. Environment Setup
@@ -294,7 +295,7 @@ Analyze all screenshots and extract data from the primary content.
 Return data in JSON format.
 ```
 
-### WebSearch Prompt (Web Search)
+### WebSearch Prompt
 ```text
 Please visit the provided URL and extract the specified information.
 
