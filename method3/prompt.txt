@@ -1,0 +1,16 @@
+You are an expert in extracting structured information from web page screenshots. Below are screenshots from an online webpage that contain  information across different sections.
+
+Required data fields:
+- xx
+- xx  
+- xx
+- xx
+- xx
+...
+
+Please analyze all screenshots carefully and extract data only from the primary content that is the main subject of this page.
+
+Instructions:
+1. Extract only information that is explicitly present in the screenshots
+2. Ensure all extracted data accurately reflects what is shown in the screenshots
+3. Return the data in a single JSON format
