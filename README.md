@@ -378,7 +378,3 @@ DEFAULT_MAX_WORKERS = 5  # Lower for rate limiting
    ```bash
    Reduce worker count in the argparse command
    ```
-
-## 📄 License
-
-This project is provided for research and reproducibility purposes. 
