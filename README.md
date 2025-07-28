@@ -5,7 +5,7 @@ This is the GitHub repo to accompany the paper [Generative AI for Data Scraping]
 
 ```
 genai-data-scraping-html/
-├── data/                    # Sample scraped data
+├── sample_data/                    # Sample scraped data
 │   ├── amazon.com/         # Amazon product pages (HTML + assets)
 │   ├── cars.com/           # Car listings (HTML + assets)
 │   └── upwork.com/         # Freelancer profiles (HTML + assets)
