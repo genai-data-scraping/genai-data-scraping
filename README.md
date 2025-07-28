@@ -38,7 +38,7 @@ The project includes scraped data from three major websites:
 - **File Size**: 1.1MB - 1.5MB per page
 - **Count**: 1,000 freelancer profiles
 
-This repository includes sample data in the **sample_data/** directory. Full datasets for amazon.com and cars.com can be downloaded from [Google Drive link]. Please note that the upwork.com dataset contains sensitive personal information and will not be shared publicly.
+This repository includes sample data in the **sample_data/** directory. Full datasets for [amazon.com](https://drive.google.com/file/d/1byuQSdUctjHvNsjYrMcV-mZX1Phr2nTO/view?usp=sharing) and [cars.com](https://drive.google.com/file/d/1GooU4kLtwoq82Jp1SaxLEJqwcilDBpzF/view?usp=drive_link) can be downloaded from the linked Google Drive files. Please note that the upwork.com dataset contains sensitive personal information and will not be shared publicly.
 ## Setup Instructions
 
 ### 1. Environment Setup
