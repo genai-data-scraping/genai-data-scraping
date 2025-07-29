@@ -12,6 +12,15 @@ DEFAULT_FOLDER_PATH = "scraped_photos"
 DEFAULT_PROMPT_FILE = "prompt.txt"
 DEFAULT_OUTPUT_FILE = "vision_results.json"
 
+# Screenshot Generation Configuration
+DEFAULT_DATA_DIR = "../sample_data"
+DEFAULT_NUM_FILES_PER_SITE = 5
+SCREENSHOT_WINDOW_WIDTH = 1920
+SCREENSHOT_WINDOW_HEIGHT = 1080
+SCREENSHOT_WAIT_TIME = 5
+SCREENSHOT_PAGE_LOAD_TIMEOUT = 30
+DEFAULT_HEADLESS_MODE = True
+
 # Logging Configuration
 LOG_FILE = "vision_processing.log"
 LOG_LEVEL = "INFO"
@@ -47,6 +56,18 @@ def get_processing_config():
         "prompt_file": DEFAULT_PROMPT_FILE,
         "output_file": DEFAULT_OUTPUT_FILE,
         "folder_path": DEFAULT_FOLDER_PATH
+    }
+
+def get_screenshot_config():
+    """Return screenshot generation configuration as dictionary."""
+    return {
+        "data_dir": DEFAULT_DATA_DIR,
+        "num_files_per_site": DEFAULT_NUM_FILES_PER_SITE,
+        "window_width": SCREENSHOT_WINDOW_WIDTH,
+        "window_height": SCREENSHOT_WINDOW_HEIGHT,
+        "wait_time": SCREENSHOT_WAIT_TIME,
+        "page_load_timeout": SCREENSHOT_PAGE_LOAD_TIMEOUT,
+        "headless": DEFAULT_HEADLESS_MODE
     }
 
 def get_logging_config():

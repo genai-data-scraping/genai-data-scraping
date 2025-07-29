@@ -20,13 +20,13 @@ def extract_url_from_html(file_path):
                 if 'saved from url=' in line:
                     # Extract URL using regex
                     # Pattern matches: url=(digits)actual_url -->
-                    pattern = r'url=\(\d+\)(https?://[^)]+)'
+                    pattern = r'url=\(\d+\)(https?://[^)]+?)(?:\s*-->)'
                     match = re.search(pattern, line)
                     if match:
                         return match.group(1)
                     
-                    # Fallback pattern for different formats
-                    pattern2 = r'(https?://[^\s>]+)'
+                    # Fallback pattern for different formats - stop before " -->"
+                    pattern2 = r'(https?://[^\s>]+?)(?:\s*-->)'
                     match2 = re.search(pattern2, line)
                     if match2:
                         return match2.group(1)

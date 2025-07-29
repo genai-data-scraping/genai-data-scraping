@@ -2,7 +2,7 @@ import os
 
 # API Settings
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "")
-MODEL_NAME = "openai/gpt-4o-mini"
+MODEL_NAME = "meta-llama/llama-3.1-8b-instruct"
 API_TIMEOUT = 60
 API_TEMPERATURE = 0.1
 API_URL = "https://openrouter.ai/api/v1/chat/completions"

@@ -2,8 +2,6 @@ You are an expert in extracting structured information from web page screenshots
 
 Required data fields:
 - xx
-- xx  
-- xx
 - xx
 - xx
 ...

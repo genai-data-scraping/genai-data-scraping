@@ -5,13 +5,13 @@ This is the GitHub repo to accompany the paper [Generative AI for Data Scraping]
 
 ```
 genai-data-scraping-html/
-├── data/                    # Sample scraped data
+├── sample_data/                    # Sample scraped data
 │   ├── amazon.com/         # Amazon product pages (HTML + assets)
 │   ├── cars.com/           # Car listings (HTML + assets)
 │   └── upwork.com/         # Freelancer profiles (HTML + assets)
 ├── method2/                # HTML processing with LLM API
 ├── method3/                # Image/screenshot processing with vision API
-├── websearch/              # Web search API processingff
+├── websearch/              # Web search API processing
 └── requirements.txt        # Python dependencies
 ```
 
@@ -38,6 +38,7 @@ The project includes scraped data from three major websites:
 - **File Size**: 1.1MB - 1.5MB per page
 - **Count**: 1,000 freelancer profiles
 
+This repository includes sample data in the **sample_data/** directory. Full datasets for [amazon.com](https://drive.google.com/file/d/1byuQSdUctjHvNsjYrMcV-mZX1Phr2nTO/view?usp=drive_link) and [cars.com](https://drive.google.com/file/d/1GooU4kLtwoq82Jp1SaxLEJqwcilDBpzF/view?usp=sharing) can be downloaded from the linked Google Drive files. Please note that the upwork.com dataset contains sensitive personal information and will not be shared publicly.
 ## Setup Instructions
 
 ### 1. Environment Setup
@@ -294,7 +295,7 @@ Analyze all screenshots and extract data from the primary content.
 Return data in JSON format.
 ```
 
-### WebSearch Prompt (Web Search)
+### WebSearch Prompt
 ```text
 Please visit the provided URL and extract the specified information.
 
@@ -377,7 +378,3 @@ DEFAULT_MAX_WORKERS = 5  # Lower for rate limiting
    ```bash
    Reduce worker count in the argparse command
    ```
-
-## 📄 License
-
-This project is provided for research and reproducibility purposes. 
