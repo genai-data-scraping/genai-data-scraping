@@ -42,8 +42,6 @@ The paper compares extraction approaches across several real-world sites. This r
 
 **Outputs** — under `results/` (git-ignored): extraction JSON, logs, cached HTML, screenshots. Retrieval evals write to `retrieval/results/`.
 
-Implementation details for the retrieval ladder: `retrieval/IMPLEMENTATION_SPEC.md`.
-
 ---
 
 ## Available data
@@ -474,7 +472,6 @@ All LLM calls use [OpenRouter](https://openrouter.ai/). Retrieval pricing is fet
 | `retrieval/eval_urls/` | Sampled eval URL lists (5 domains) |
 | `retrieval/scripts/sample_eval_urls.py` | Regenerate eval URL samples |
 | `retrieval/tests/` | Unit tests (58 tests) |
-| `retrieval/IMPLEMENTATION_SPEC.md` | Retrieval design spec |
 | `method1/` | Site-specific BeautifulSoup scrapers (6 sites) |
 | `method2/` | HTML cleaning + LLM |
 | `method3/` | Screenshot + vision LLM |
