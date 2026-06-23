@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!-- saved from url=(0892)https://cdn.taboola.com/scripts/prebid_iframe_sync.html?gdpr=1&gdpr_consent=CQlbw0AQlbw0AAHADBENChFoAP_gAEPgACiQK0tB9G7eTWFjeTJ2YLskOYwH0VBJ4MAwBgCAAEABzBIUIBwGRmARJAyIICACGAIAIGBBIABlGABAQEAAIIAFAABIAEgAIBAAICAAAAAIAABACAAAAAAAAAAQgEAXIAQgmAYEBFoIQUhAggAAAQAAAAAEAIABAAQAAAAAQAAACAAAACgAggAAAAAAAAAEAFAIAAAAIAECAgsgdAAAAAAAAAAIAAYAAEABAAAAAAAAAgrSACQaFRBEWBAIEAgIQQIABBQEAFAgCAAAIAAAABMEBAgDABUYBIAQAgAAAAAAAAAAAEAAAEACEAAQAAAgBAAAAgACAAgAAAAIAAAAABAAAAAAAAAAAAAAAAAAAQgACCAAAAEEABBQAAQACAAAAAAAAAAiAAIAAAAAAAAAAAAAACAAACAAAAAAAAAAAAAAAgRAAAgAAACgMAWAAAAAAAAAAAAAAAIQAEAAAAAgAACAAA.IL2NB9G7eTXFneTJ2YLskOYwX0VBJ4MAwBgCAAEABzBIUIBwGVmATJEyIICACGAIAIGBBIABtGAhAQEAAIIAVAABIAEgAIBAAIGAAACAIQABACAAAAAAAAAAQgEAXIAQgmAYEBFoIQUhAkgAgAQAAAAAEAIgBCAQAEAAAQAAACAAAgCgAggAAAAAAAAAEAFAIEQAAIAECAovgdgAAAAAAAAAIAAYACEABAAAAAIAAAgCAAAAAAAAAAAAAAAAAAAB.YAAAAAAABZTwAA&us_privacy=1-%2D-&gpp=DBAA&gpp_sid=-1 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script async="" src="./ifs.js"></script><script type="text/javascript">
+"use strict";
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+(function () {
+  try {
+    var TABOOLA_GLOBAL_USER_KEY = 'taboola global:user-id';
+    var COOKIE_KEY = 'trc_cookie_storage';
+    var TGID_COOKIE_KEY = 't_gid';
+    var USER_ID = 'user-id';
+    var queryParams = new URL(window.location.href).searchParams;
+    var consentTokens = [];
+    var GDPR = queryParams.get('gdpr');
+    var SYNC_URL_PIXEL = 'https://trc.taboola.com/sg/prebidJS/1/cm';
+    if (GDPR) {
+      consentTokens.push("gdpr=".concat(GDPR, "&gdpr_consent=").concat(queryParams.get('gdpr_consent') || ''));
+    }
+    var US_PRIVACY = queryParams.get('us_privacy');
+    if (US_PRIVACY) {
+      consentTokens.push("us_privacy=".concat(US_PRIVACY));
+    }
+    var GPP = queryParams.get('gpp');
+    if (GPP) {
+      consentTokens.push("gpp=".concat(GPP));
+    }
+    var ls = window.localStorage;
+    var readFromLs = function readFromLs() {
+      var uid = null;
+      if (ls) {
+        try {
+          uid = ls.getItem(TABOOLA_GLOBAL_USER_KEY);
+        } catch (err) {
+          uid = null;
+        }
+      }
+      return uid;
+    };
+    var getCookieDataByKey = function getCookieDataByKey(cookieData, key) {
+      var _cookieData$split = cookieData.split("".concat(key, "=")),
+        _cookieData$split2 = _slicedToArray(_cookieData$split, 2),
+        _cookieData$split2$ = _cookieData$split2[1],
+        value = _cookieData$split2$ === void 0 ? '' : _cookieData$split2$;
+      return value;
+    };
+    var getCookie = function getCookie(cname) {
+      var name = "".concat(cname, "=");
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) === 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return '';
+    };
+    var getUserId = function getUserId() {
+      var uidFromLS = readFromLs();
+      if (uidFromLS) {
+        return uidFromLS;
+      }
+      var uidFromCookie = getCookieDataByKey(getCookie(COOKIE_KEY), USER_ID) || getCookie(TGID_COOKIE_KEY);
+      if (uidFromCookie) {
+        return uidFromCookie;
+      }
+      var uidFromTRC = window.TRC ? window.TRC.user_id : undefined;
+      if (uidFromTRC) {
+        return uidFromTRC;
+      }
+      return undefined;
+    };
+    var loadIfsScript = function loadIfsScript() {
+      var ifs = document.createElement('script');
+      ifs.async = true;
+      ifs.src = 'https://cdn.taboola.com/scripts/ifs.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ifs, s);
+    };
+    var sendUid = function sendUid(url) {
+      try {
+        if (typeof window.fetch !== 'function') {
+          var xmlHttp = new XMLHttpRequest();
+          xmlHttp.open('GET', url, false);
+          xmlHttp.send();
+        } else {
+          fetch(url, {
+            credentials: 'include'
+          });
+        }
+      } catch (err) {
+        return undefined;
+      }
+    };
+    var uid = getUserId();
+    if (uid) {
+      window.localStorage.setItem(TABOOLA_GLOBAL_USER_KEY, uid);
+    } else {
+      sendUid(SYNC_URL_PIXEL + (consentTokens.length ? '?' + consentTokens.join('&') : ''));
+    }
+    loadIfsScript();
+  } catch (e) {
+    return undefined;
+  }
+})();
+    </script>
+</head>
+<body marginwidth="0" marginheight="0">
+
+
+</body></html>

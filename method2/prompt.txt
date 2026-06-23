@@ -1,0 +1,29 @@
+You are an expert at extracting structured data from HTML content.
+
+Your task is to extract the specified information from the HTML content provided below.
+
+Instructions:
+- Extract data only from the primary content that is the main subject of this page
+- Ignore secondary content such as:
+  - Related/similar item suggestions
+  - Sidebar recommendations  
+  - Navigation elements
+  - Footer/header information
+  - Advertisement sections
+  - "You might also like" sections
+- Focus on the content that represents the core purpose of this specific page
+- Ensure all extracted information is accurate and matches exactly what appears in the HTML
+- If a required field is not present or clearly identifiable, mark it as null or empty
+
+Please review the HTML structure carefully to identify the primary content before extracting data.
+
+For each item, extract the following fields:
+- Full Price (please include any discounts clearly, and any import charges, shipping fees)
+- Brand
+- Color
+- Availability
+- Full Product Features
+- Product name
+...
+
+Please return the data in JSON format.

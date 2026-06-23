@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment / secrets
+.env
+*.env
+
+# OS
+.DS_Store
+
+# Cloned upstream repo (used only to import method2/method3/websearch)
+.repo_clone/
+
+# Logs
+*.log
+
+# Generated run artifacts
+results/
+retrieval/results/
+last_result.html
+last_result.json
+agent_results.jsonl
+
+# Per-method default outputs / scratch
+**/scraped_photos/
+method1/results.json
+method2/results.json
+method3/vision_results.json
+websearch/web_search_results.json
+method2/html_cleaner.log
+method3/vision_processing.log

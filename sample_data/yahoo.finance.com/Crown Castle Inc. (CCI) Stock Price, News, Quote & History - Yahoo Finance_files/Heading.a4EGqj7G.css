@@ -1,0 +1,1 @@
+.article-heading-atom{scroll-margin-top:var(--ybar-top)}.article-heading-atom:is(h1){margin-bottom:var(--size-space-09)}.article-heading-atom:is(h2){margin:var(--size-space-07) 0}.article-heading-atom:is(h3),.article-heading-atom:is(h4){margin:0 0 var(--size-space-07)}.article-heading-atom:is(h5),.article-heading-atom:is(h6){margin:0 0 var(--size-space-06)}

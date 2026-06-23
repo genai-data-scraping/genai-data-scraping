@@ -1,0 +1,19 @@
+# Retrieval ladder (retrieval/) + interactive launcher (app.py)
+python-dotenv==1.0.1
+openai==2.40.0
+requests==2.34.2
+beautifulsoup4==4.14.3
+playwright==1.60.0
+playwright-stealth==1.0.6
+
+# HTML extraction — method2 (clean HTML -> LLM)
+html2text==2025.4.15
+
+# Screenshot extraction — method3 (Selenium screenshots -> vision LLM)
+# Needs a local Google Chrome install.
+selenium==4.34.2
+
+# websearch extraction uses only requests (listed above).
+
+# Retrieval unit tests (retrieval/tests/)
+pytest==9.1.1
