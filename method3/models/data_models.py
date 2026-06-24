@@ -27,13 +27,16 @@ def create_api_message(prompt: str, image_count: int, image_content: List[Dict])
     return message_content
 
 def create_api_request_payload(message_content: List[Dict], model: str,
-                               temperature: float = None) -> Dict:
+                               temperature: float = None,
+                               max_tokens: int = None) -> Dict:
 
-    from config.settings import API_TEMPERATURE
+    from config.settings import API_TEMPERATURE, API_MAX_OUTPUT_TOKENS
     payload = {
         "model": model,
         "messages": [{"role": "user", "content": message_content}],
         "temperature": API_TEMPERATURE if temperature is None else temperature,
+        "max_tokens": API_MAX_OUTPUT_TOKENS if max_tokens is None else max_tokens,
+        "response_format": {"type": "json_object"},
     }
     return payload
 

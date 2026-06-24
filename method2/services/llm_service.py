@@ -3,7 +3,8 @@ import time
 import requests
 from config.settings import (
     OPENROUTER_API_KEY, MODEL_NAME, API_TIMEOUT,
-    API_TEMPERATURE, API_URL, OPENROUTER_REFERER, openrouter_app_title
+    API_TEMPERATURE, API_URL, OPENROUTER_REFERER, openrouter_app_title,
+    MAX_OUTPUT_TOKENS,
 )
 from config.logging_config import get_logger
 
@@ -25,7 +26,7 @@ def extract_with_llm(cleaned_content, prompt, url=""):
         "X-Title": openrouter_app_title(url=url),
     }
 
-    data = json.dumps({
+    payload = {
         "model": MODEL_NAME,
         "messages": [
             {
@@ -33,8 +34,13 @@ def extract_with_llm(cleaned_content, prompt, url=""):
                 "content": f"{prompt}\n\nContent:\n{cleaned_content}"
             }
         ],
-        "temperature": API_TEMPERATURE
-    })
+        "temperature": API_TEMPERATURE,
+        "max_tokens": MAX_OUTPUT_TOKENS,
+    }
+    if "json" in prompt.lower():
+        payload["response_format"] = {"type": "json_object"}
+
+    data = json.dumps(payload)
 
     try:
         start = time.perf_counter()

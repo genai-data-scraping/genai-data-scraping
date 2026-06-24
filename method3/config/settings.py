@@ -6,6 +6,7 @@ API_BASE_URL = "https://openrouter.ai/api/v1/chat/completions"
 API_MODEL = "mistralai/mistral-small-3.2-24b-instruct"
 API_TIMEOUT = 120
 API_TEMPERATURE = 0.1
+API_MAX_OUTPUT_TOKENS = 4096
 
 OPENROUTER_REFERER = "https://github.com/genai-data-scraping"
 OPENROUTER_METHOD = "screenshot"
@@ -48,7 +49,7 @@ DEFAULT_NUM_FILES_PER_SITE = 5
 SCREENSHOT_WINDOW_WIDTH = 1920
 SCREENSHOT_WINDOW_HEIGHT = 1080
 SCREENSHOT_WAIT_TIME = 3
-SCREENSHOT_PAGE_LOAD_TIMEOUT = 15
+SCREENSHOT_PAGE_LOAD_TIMEOUT = 45
 DEFAULT_HEADLESS_MODE = True
 
 
@@ -74,6 +75,7 @@ def get_api_config():
         "model": API_MODEL,
         "timeout": API_TIMEOUT,
         "temperature": API_TEMPERATURE,
+        "max_tokens": API_MAX_OUTPUT_TOKENS,
         "api_key": get_api_key()
     }
 

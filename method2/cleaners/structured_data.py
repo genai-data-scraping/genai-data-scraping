@@ -112,6 +112,92 @@ def _main_quote_symbol(soup):
     return match.group(1).strip() if match else None
 
 
+def _main_symbol_streamers(soup):
+    symbol = _main_quote_symbol(soup)
+    out = {}
+    for el in soup.find_all("fin-streamer"):
+        if symbol and el.get("data-symbol") != symbol:
+            continue
+        field = el.get("data-field")
+        val = el.get_text(strip=True)
+        if field and val:
+            out[field] = val
+    return out
+
+
+def _stat_value(stats_el, pattern):
+    if not stats_el:
+        return None
+    for li in stats_el.find_all("li"):
+        text = _collapse_ws(li.get_text(" ", strip=True))
+        match = pattern.search(text)
+        if match:
+            return match.group(1).strip()
+    return None
+
+
+_MARKET_CAP_RE = re.compile(r"Market Cap(?:\s*\([^)]*\))?\s*(.+)", re.I)
+_WEEK_RANGE_RE = re.compile(r"52 Week Range\s*(.+)", re.I)
+
+
+def extract_yahoo_finance_data(soup):
+    title_el = soup.find(attrs={"data-testid": "quote-title"})
+    price_el = soup.find(attrs={"data-testid": "quote-price"})
+    if not title_el and not price_el:
+        return ""
+
+    lines = []
+    if title_el:
+        lines.append(
+            f"company_name: {_collapse_ws(title_el.get_text(' ', strip=True))}"
+        )
+
+    streamers = _main_symbol_streamers(soup)
+    price = streamers.get("regularMarketPrice")
+    change = streamers.get("regularMarketChange")
+    pct = streamers.get("regularMarketChangePercent")
+
+    if not price and price_el:
+        match = re.search(r"([\d,.]+)", price_el.get_text(" ", strip=True))
+        if match:
+            price = match.group(1)
+
+    if not change and price_el:
+        match = re.search(r"([\d,.]+)\s+(-?[\d,.]+)\s+\((-?[\d,.]+%)\)", price_el.get_text(" ", strip=True))
+        if match:
+            price = price or match.group(1)
+            change = match.group(2)
+            pct = match.group(3)
+
+    if price:
+        lines.append(f"current_stock_price: {price}")
+    if change:
+        lines.append(f"price_change: {change}")
+    if pct:
+        lines.append(f"percentage_change: {pct}")
+
+    stats_el = soup.find(attrs={"data-testid": "quote-statistics"})
+    market_cap = _stat_value(stats_el, _MARKET_CAP_RE)
+    week_range = _stat_value(stats_el, _WEEK_RANGE_RE)
+    if market_cap:
+        lines.append(f"market_capitalization: {market_cap}")
+    if week_range:
+        lines.append(f"fifty_two_week_price_range: {week_range}")
+
+    if stats_el:
+        stat_lines = []
+        for li in stats_el.find_all("li"):
+            text = _collapse_ws(li.get_text(" ", strip=True))
+            if text:
+                stat_lines.append(f"- {text}")
+        if stat_lines:
+            lines += ["", "Key statistics:"] + stat_lines
+
+    if lines:
+        logger.info("Extracted Yahoo Finance quote data")
+    return "\n".join(lines)
+
+
 def _extract_other_quotes_on_page(soup, max_tickers=10):
 
 

@@ -18,6 +18,8 @@ from config.settings import (
 
 logger = logging.getLogger(__name__)
 
+WIKIPEDIA_INITIAL_SCROLL_RATIO = 0.30
+
 class ScreenshotCapture:
 
 
@@ -47,22 +49,137 @@ class ScreenshotCapture:
 
         self.output_dir.mkdir(exist_ok=True)
 
-    def _scroll_positions(self, total_height: int, viewport_height: int) -> List[int]:
+    @staticmethod
+    def _is_wikipedia_page(html_file_path: str, site: str) -> bool:
+        haystack = f"{site} {html_file_path}".lower()
+        return "wikipedia" in haystack
+
+    @staticmethod
+    def _site_kind(html_file_path: str, site: str) -> str:
+        haystack = f"{site} {html_file_path}".lower()
+        if "wikipedia" in haystack:
+            return "wikipedia"
+        if "reuters" in haystack:
+            return "reuters"
+        if "cars" in haystack:
+            return "cars"
+        if "yahoo" in haystack or "finance" in haystack:
+            return "yahoo"
+        return "default"
+
+    def _scroll_y_for_selector(self, selector: str) -> int | None:
+        try:
+            el = self.driver.find_element(By.CSS_SELECTOR, selector)
+            return int(
+                self.driver.execute_script(
+                    "return Math.max(0, Math.round("
+                    "arguments[0].getBoundingClientRect().top + window.pageYOffset - 24));",
+                    el,
+                )
+            )
+        except Exception:
+            return None
+
+    def _finalize_scroll_plan(
+        self, raw_positions: list[int | None], max_scroll: int, count: int
+    ) -> list[int]:
+        positions: list[int] = []
+        seen: set[int] = set()
+        for y in raw_positions:
+            if y is None:
+                continue
+            y = max(0, min(int(y), max_scroll))
+            if y not in seen:
+                seen.add(y)
+                positions.append(y)
+        positions.sort()
+        if not positions:
+            positions = [0]
+        step = max(1, max_scroll // max(1, count - 1))
+        while len(positions) < count:
+            candidate = min(positions[-1] + step, max_scroll)
+            if candidate in seen:
+                if candidate >= max_scroll:
+                    break
+                candidate = min(candidate + step, max_scroll)
+            if candidate in seen:
+                break
+            positions.append(candidate)
+            seen.add(candidate)
+        if len(positions) > count:
+            keep = {positions[0], positions[-1]}
+            mids = count - 2
+            if mids > 0:
+                for i in range(1, mids + 1):
+                    keep.add(positions[min(len(positions) - 1, i * (len(positions) - 1) // (mids + 1))])
+            positions = sorted(keep)[:count]
+        return positions[:count]
+
+    def _scroll_positions(
+        self, total_height: int, viewport_height: int, start_offset: int = 0
+    ) -> List[int]:
 
         count = self.screenshots_per_page
-        if total_height <= viewport_height:
-            return [0]
-
         max_scroll = max(0, total_height - viewport_height)
+        start_offset = min(max(0, start_offset), max_scroll)
+
+        if total_height <= viewport_height:
+            return [start_offset]
+
         overlap = min(max(0, self.scroll_overlap), viewport_height - 1)
         step = max(1, viewport_height - overlap)
         positions = []
         for i in range(count):
-            scroll_y = min(i * step, max_scroll)
+            scroll_y = min(start_offset + i * step, max_scroll)
             if positions and scroll_y == positions[-1]:
                 break
             positions.append(scroll_y)
         return positions
+
+    def _build_scroll_plan(
+        self, html_file_path: str, site: str, total_height: int, viewport_height: int
+    ) -> list[int]:
+        max_scroll = max(0, total_height - viewport_height)
+        kind = self._site_kind(html_file_path, site)
+        overlap = min(max(0, self.scroll_overlap), viewport_height - 1)
+        step = max(1, viewport_height - overlap)
+
+        if kind == "wikipedia":
+            start_offset = int(total_height * WIKIPEDIA_INITIAL_SCROLL_RATIO)
+            start_offset = min(max(0, start_offset), max_scroll)
+            # 4th screenshot is always the page bottom (footer / last-edited line).
+            return self._finalize_scroll_plan(
+                [start_offset, start_offset + step, start_offset + 2 * step, max_scroll],
+                max_scroll,
+                self.screenshots_per_page,
+            )
+
+        if kind == "reuters":
+            return self._finalize_scroll_plan(
+                [0, step, step * 2, max_scroll],
+                max_scroll,
+                self.screenshots_per_page,
+            )
+
+        if kind == "cars":
+            dealer_y = self._scroll_y_for_selector(".dealer-address")
+            if dealer_y is None:
+                dealer_y = self._scroll_y_for_selector("h3.seller-name")
+            return self._finalize_scroll_plan(
+                [0, dealer_y, step, max_scroll],
+                max_scroll,
+                self.screenshots_per_page,
+            )
+
+        if kind == "yahoo":
+            stats_y = self._scroll_y_for_selector("[data-testid='quote-statistics']")
+            return self._finalize_scroll_plan(
+                [0, stats_y, step, max_scroll],
+                max_scroll,
+                self.screenshots_per_page,
+            )
+
+        return self._scroll_positions(total_height, viewport_height, start_offset=0)
 
     def _setup_driver(self) -> webdriver.Chrome:
 
@@ -152,9 +269,8 @@ class ScreenshotCapture:
                 self.driver = self._setup_driver()
 
             logger.info(
-                f"Capturing {self.screenshots_per_page} top-of-page screenshot(s): {html_path.name}"
+                f"Capturing {self.screenshots_per_page} screenshot(s): {html_path.name}"
             )
-
 
             file_url = f"file://{html_path.absolute()}"
 
@@ -174,7 +290,9 @@ class ScreenshotCapture:
 
             logger.info(f"Page height: {total_height}px, Viewport: {viewport_height}px")
 
-            scroll_positions = self._scroll_positions(total_height, viewport_height)
+            scroll_positions = self._build_scroll_plan(
+                html_file_path, site, total_height, viewport_height
+            )
             overlap = min(max(0, self.scroll_overlap), viewport_height - 1)
             step = max(1, viewport_height - overlap)
             logger.info(

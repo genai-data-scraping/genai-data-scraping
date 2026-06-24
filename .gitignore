@@ -22,9 +22,16 @@ env/
 # Logs
 *.log
 
+# Local benchmark / one-off scripts (not for repo)
+/scripts/
+
 # Generated run artifacts
 results/
 retrieval/results/
+method_compare*/
+method_benchmark*/
+*_relaxed/
+**/shots_*/
 last_result.html
 last_result.json
 agent_results.jsonl

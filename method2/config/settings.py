@@ -4,7 +4,7 @@ from urllib.parse import urlparse
 
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "")
 MODEL_NAME = "meta-llama/llama-3.1-8b-instruct"
-API_TIMEOUT = 60
+API_TIMEOUT = 120
 API_TEMPERATURE = 0.1
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
@@ -29,7 +29,7 @@ DEFAULT_PROMPT_FILE = "prompt.txt"
 
 
 MAX_CONTENT_CHARS = 80000
-
+MAX_OUTPUT_TOKENS = 8192
 
 REUTERS_MAX_CONTENT_CHARS = 80000
 REUTERS_MIN_CONTENT_SCORE = 0.2

@@ -1,4 +1,14 @@
+import re
+
 from config.settings import HIGH_CONFIDENCE_BOILERPLATE_PATTERNS
+
+_NAV_ATTR_PATTERNS = (
+    re.compile(r"\bnav\b"),
+    re.compile(r"\bnavigation\b"),
+    re.compile(r"\bmenu\b"),
+    re.compile(r"\bbreadcrumb\b"),
+    re.compile(r"\bsidebar\b"),
+)
 
 
 def is_likely_boilerplate(tag):
@@ -37,17 +47,19 @@ def is_likely_boilerplate(tag):
 
 def detect_navigation_elements(tag):
 
-    nav_indicators = ['nav', 'navigation', 'menu', 'breadcrumb', 'sidebar']
+    if tag.name == "nav":
+        return True
 
+    role = (tag.get("role") or "").lower()
+    if role in {"navigation", "menu", "menubar"}:
+        return True
 
-    attrs_text = ' '.join([
-        ' '.join(tag.get('class', [])),
-        tag.get('id', ''),
-        tag.get('role', ''),
-        tag.name
+    attrs_text = " ".join([
+        " ".join(tag.get("class", [])),
+        tag.get("id", ""),
     ]).lower()
 
-    return any(indicator in attrs_text for indicator in nav_indicators)
+    return any(pattern.search(attrs_text) for pattern in _NAV_ATTR_PATTERNS)
 
 
 def detect_advertisement_content(tag):
